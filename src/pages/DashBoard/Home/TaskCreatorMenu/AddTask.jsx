@@ -12,7 +12,7 @@ import useAxiosSecure from "../../../../Hooks/useAxiosSecure";
 
 const AddTask = () => {
     const { user } = useAuth();
-    const [role] = useInfo();
+    const [role, , refetch] = useInfo();
     const navigate = useNavigate();
     const [startDate, setStartDate] = useState(new Date())
     const axiosSecure = useAxiosSecure();
@@ -46,7 +46,14 @@ const AddTask = () => {
             }
             const { data } = await axiosSecure.post('/tasks', taskData);
             if (data.insertedId) {
-                toast.success("Your task add into our server")
+                const newCoin = role?.coin - (taskNumber * amount);
+                const update = await axiosSecure.patch(`user/${user?.email}`, { newCoin });
+                console.log(update);
+                if (update.data.modifiedCount) {
+                    toast.success("Your task add into our server");
+                    refetch();
+                    navigate('/dashboard/my-task');
+                }
             }
 
 
