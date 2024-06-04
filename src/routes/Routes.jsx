@@ -5,6 +5,7 @@ import Main from "../Layouts/Main";
 import Home from "../pages/Home/Home";
 import Login from "../pages/Authentication/Login";
 import Register from "../pages/Authentication/Register";
+import DashBoardLayout from "../Layouts/DashBoardLayout";
 
 export const router = createBrowserRouter([
     {
@@ -25,6 +26,11 @@ export const router = createBrowserRouter([
     {
         path: "/sign-up",
         element: <Register />
+    },
+    {
+        path: '/dashBoard',
+        element: <DashBoardLayout />
+
     }
 
 

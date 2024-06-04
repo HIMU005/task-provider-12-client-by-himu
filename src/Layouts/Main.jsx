@@ -1,12 +1,13 @@
 import { Outlet } from "react-router-dom";
 import Navbar from "../components/Shared/Navbar";
+import Footer from "../components/Shared/Footer";
 
 const Main = () => {
     return (
         <div>
             <Navbar />
-            <h2 className="text-2xl italic">I am main layout</h2>
             <Outlet />
+            <Footer />
         </div>
     );
 };

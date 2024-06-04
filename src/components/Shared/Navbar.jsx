@@ -1,10 +1,24 @@
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
+import useAuth from "../../Hooks/useAuth";
+import UserLogo from "./UserLogo";
 
 const Navbar = () => {
+    const { user } = useAuth();
+
     const links = <>
-        <li><NavLink to={'/login'}>Login</NavLink></li>
-        <li><NavLink to={'/sign-up'}>SignUp</NavLink></li>
+        {!user ? <>
+            <li><NavLink to={'/login'}>Login</NavLink></li>
+            <li><NavLink to={'/sign-up'}>SignUp</NavLink></li>
+            <li><a href="https://youtu.be/3OOHC_UzrKA?si=r5BUiybMleW2UWhw" target="_blank">Watch Demo</a></li>
+        </> :
+            <>
+                <li><NavLink to={'/dashBoard'}>DashBoard</NavLink></li>
+            </>
+        }
     </>
+
+
+
     return (
         <div className="navbar bg-base-100">
             <div className="navbar-start">
@@ -16,16 +30,15 @@ const Navbar = () => {
                         {links}
                     </ul>
                 </div>
-                <a className="btn btn-ghost text-xl">daisyUI</a>
+                <Link to={'/'} className="btn btn-ghost text-xl">Task Provider</Link>
             </div>
             <div className="navbar-center hidden lg:flex">
                 <ul className="menu menu-horizontal px-1">
                     {links}
                 </ul>
             </div>
-            <div className="navbar-end">
-                <a className="btn">Button</a>
-            </div>
+
+            <UserLogo />
         </div>
     );
 };
