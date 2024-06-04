@@ -1,42 +1,80 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FcGoogle } from 'react-icons/fc'
 import { imageUpload } from "../../api/imageUpload";
 import toast from 'react-hot-toast'
 import useAuth from "../../Hooks/useAuth";
+import useAxiosCommon from "../../Hooks/useAxiosCommon";
 
 const Register = () => {
-    const
-        {
-            loading,
-            createUser,
-            updateUserProfile,
-            setLoading,
-        } = useAuth();
+    const {
+        loading,
+        createUser,
+        updateUserProfile,
+        setLoading,
+        GoogleLogin,
+    } = useAuth();
+    const axiosCommon = useAxiosCommon();
+    const navigate = useNavigate();
 
     const handleSubmit = async e => {
         e.preventDefault();
         const form = e.target;
+        const role = form.role.value;
         const name = form.name.value;
         const email = form.email.value;
         const password = form.password.value;
+        let coin;
         const image = form.image.files[0];
+        if (role === 'worker') {
+            coin = 10;
+        }
+        else {
+            coin = 50;
+        }
+
 
         try {
             setLoading(true);
             const photo = await imageUpload(image);
-            console.log(photo);
-            const result = await createUser(email, password);
-            console.log(result);
+            await createUser(email, password);
             await updateUserProfile(name, photo);
+            const userInfo = { displayName: name, email, photoURL: photo, role, coin }
+            const { data } = await axiosCommon.post('/users', userInfo);
+            if (data.insertedId) {
+                toast.success("Your information save in out database")
+            }
+            navigate('/');
         } catch (err) {
-            console.log(err);
             toast.error(err.message)
         }
 
     }
 
     const handleGoogleSignIn = async () => {
+        try {
+            const result = await GoogleLogin();
+            const { data } = await axiosCommon.get(`/user/${result?.user?.email}`)
+            console.log("data", data);
+            if (!data) {
+                const userInfo = {
+                    displayName: result.user.displayName,
+                    email: result.user.email,
+                    photoURL: result.user.photoURL,
+                    role: 'worker',
+                    coin: 10,
+                }
+                const userResponse = await axiosCommon.post('/users', userInfo);
+                console.log(userResponse);
+                if (userResponse.insertedId) {
+                    toast.success("Your information save in out database")
+                }
+                navigate('/');
+            }
 
+        } catch (err) {
+            console.log(err);
+            toast.error(err.message)
+        }
     }
 
 
@@ -125,7 +163,7 @@ const Register = () => {
                                         className='w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-rose-500 bg-gray-200 text-gray-900'
                                     />
                                 </div>
-
+                                {/* upload image  */}
                                 <div className="col-span-6">
                                     <label htmlFor='image' className='block mb-2 text-sm'>
                                         Select Image:
@@ -138,7 +176,20 @@ const Register = () => {
                                         accept='image/*'
                                     />
                                 </div>
-                                <br />
+                                {/* select role  */}
+
+
+
+                                <div className="col-span-6 ">
+                                    <label htmlFor="Role" className="block text-sm font-medium text-gray-700">
+                                        Choose your role
+                                    </label>
+
+                                    <select name="role" id="cars">
+                                        <option value="worker">Worker</option>
+                                        <option value="task-creator">Task Creator</option>
+                                    </select>
+                                </div>
 
 
                                 <div className="col-span-6 sm:flex sm:items-center sm:gap-4">
