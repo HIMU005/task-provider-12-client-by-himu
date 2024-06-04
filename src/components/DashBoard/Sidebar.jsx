@@ -3,12 +3,14 @@ import { Link } from "react-router-dom"
 import useAuth from "../../Hooks/useAuth"
 import { GrLogout } from 'react-icons/gr'
 import useInfo from "../../Hooks/useInfo"
+import WorkerMenu from "./NavigationDash/Menu/WorkerMenu"
+import TaskCreatorMenu from "./NavigationDash/Menu/TaskCreatorMenu"
+import AdminMenu from "./NavigationDash/Menu/AdminMenu"
 
 const Sidebar = () => {
     const { logOut } = useAuth()
     const [isActive, setActive] = useState(false)
     const [role, isLoading] = useInfo()
-    console.log(role, isLoading)
     return (
         <>
             {/* Small Screen Navbar */}
@@ -59,7 +61,18 @@ const Sidebar = () => {
 
                     {/* Nav Items */}
 
+
                 </div>
+
+                {
+                    role.role === 'worker' && <WorkerMenu />
+                }
+                {
+                    role.role === 'task-creator' && <TaskCreatorMenu />
+                }
+                {
+                    role.role === 'admin' && <AdminMenu />
+                }
 
                 <div>
                     <hr />
