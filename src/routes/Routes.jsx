@@ -16,6 +16,7 @@ import PurchaseCoin from "../pages/DashBoard/Home/TaskCreatorMenu/PurchaseCoin";
 import ManageUser from "../pages/DashBoard/Home/AdminHome/ManageUser";
 import ManageTasks from "../pages/DashBoard/Home/AdminHome/ManageTasks";
 import UpdateMyTask from "../pages/DashBoard/Home/TaskCreatorMenu/UpdateMyTask";
+import TaskDetails from "../pages/DashBoard/Home/WorkerHome/TaskDetails";
 
 export const router = createBrowserRouter([
     {
@@ -50,6 +51,10 @@ export const router = createBrowserRouter([
             {
                 path: "task-list",
                 element: <TaskList />,
+            },
+            {
+                path: "task-details/:id",
+                element: <TaskDetails />
             },
             {
                 path: 'my-submission',
