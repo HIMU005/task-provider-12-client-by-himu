@@ -3,9 +3,10 @@ import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css';
 import toast from 'react-hot-toast';
 import { useLoaderData, useNavigate } from 'react-router-dom';
-import { axiosSecure } from '../../../../Hooks/useAxiosSecure';
+import useAxiosSecure from '../../../../Hooks/useAxiosSecure';
 
 const UpdateMyTask = () => {
+    const axiosSecure = useAxiosSecure();
     const taskData = useLoaderData();
     const navigate = useNavigate();
     const { amount, completionDate, subInfo, taskDetails, taskName, taskNumber, } = taskData;

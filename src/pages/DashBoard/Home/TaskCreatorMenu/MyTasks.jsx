@@ -17,27 +17,25 @@ const MyTasks = () => {
     { isLoading && <h2>Wait</h2> }
 
     return (
-        <div>
-            <div className="overflow-x-auto">
-                <table className="min-w-full divide-y-2 divide-gray-200 bg-white text-sm">
-                    <thead className="ltr:text-left rtl:text-right">
-                        <tr>
-                            <th className="whitespace-nowrap px-4 text-left py-2 font-medium text-gray-900">Task Title</th>
-                            <th className="whitespace-nowrap px-4 text-left py-2 font-medium text-gray-900">Task Count</th>
-                            <th className="whitespace-nowrap px-4 text-left py-2 font-medium text-gray-900">Payable amount</th>
-                            <th className="whitespace-nowrap px-4 text-left py-2 font-medium text-gray-900">Action</th>
-                            <th className="px-4 py-2">Action</th>
-                            <th className="px-4 py-2"></th>
-                        </tr>
-                    </thead>
+        <div className="overflow-x-auto">
+            <table className="min-w-full divide-y-2 divide-gray-200 bg-white text-sm">
+                <thead className="ltr:text-left rtl:text-right">
+                    <tr>
+                        <th className="whitespace-nowrap px-4 text-left py-2 font-medium text-gray-900">Task Title</th>
+                        <th className="whitespace-nowrap px-4 text-left py-2 font-medium text-gray-900">Task Count</th>
+                        <th className="whitespace-nowrap px-4 text-left py-2 font-medium text-gray-900">Payable amount</th>
+                        <th className="whitespace-nowrap px-4 text-left py-2 font-medium text-gray-900">Action</th>
+                        <th className="px-4 py-2">Action</th>
+                        <th className="px-4 py-2"></th>
+                    </tr>
+                </thead>
 
-                    <tbody className="divide-y divide-gray-200">
-                        {
-                            tasks.map(task => <TaskCreatorTableRow key={task._id} task={task} refetch={refetch} />)
-                        }
-                    </tbody>
-                </table>
-            </div>
+                <tbody className="divide-y divide-gray-200">
+                    {
+                        tasks.map(task => <TaskCreatorTableRow key={task._id} task={task} refetch={refetch} />)
+                    }
+                </tbody>
+            </table>
         </div>
     );
 };
