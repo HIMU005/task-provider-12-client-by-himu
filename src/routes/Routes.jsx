@@ -15,6 +15,7 @@ import PaymentHistory from "../pages/DashBoard/Home/TaskCreatorMenu/PaymentHisto
 import PurchaseCoin from "../pages/DashBoard/Home/TaskCreatorMenu/PurchaseCoin";
 import ManageUser from "../pages/DashBoard/Home/AdminHome/ManageUser";
 import ManageTasks from "../pages/DashBoard/Home/AdminHome/ManageTasks";
+import UpdateMyTask from "../pages/DashBoard/Home/TaskCreatorMenu/UpdateMyTask";
 
 export const router = createBrowserRouter([
     {
@@ -63,6 +64,11 @@ export const router = createBrowserRouter([
             {
                 path: 'my-task',
                 element: <MyTasks />,
+            },
+            {
+                path: "update/my-task/:id",
+                element: <UpdateMyTask />,
+                loader: ({ params }) => fetch(`http://localhost:5000/task/${params.id}`)
             },
             {
                 path: 'purchase-coin',

@@ -10,7 +10,7 @@ const MyTasks = () => {
         queryKey: ['tasks', user?.email],
         // enabled: !isLoading && !!user?.email,
         queryFn: async () => {
-            const { data } = await axiosSecure.get(`/task/${user?.email}`);
+            const { data } = await axiosSecure.get(`/tasks/${user?.email}`);
             return data;
         },
     })
