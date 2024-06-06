@@ -1,7 +1,5 @@
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
 import PropTypes from 'prop-types'; // ES6
-
-
 import './PaymentCard.css'
 import { useEffect, useState } from 'react';
 import useAxiosSecure from '../../../Hooks/useAxiosSecure';
@@ -21,7 +19,7 @@ const PaymentCard = ({ closeModal, price, coinNumber }) => {
     const [processing, setProcessing] = useState(false)
     useEffect(() => {
         // fetch client secret
-        if (price && price > 1) {
+        if (price && price > 0) {
             getClientSecret({ price })
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -31,6 +29,7 @@ const PaymentCard = ({ closeModal, price, coinNumber }) => {
     const getClientSecret = async price => {
         const { data } = await axiosSecure.post(`/create-payment-intent`, { price })
         setClientSecret(data.clientSecret)
+        console.log(data.clientSecret);
     }
 
     const handleSubmit = async (event) => {
@@ -91,12 +90,13 @@ const PaymentCard = ({ closeModal, price, coinNumber }) => {
                 price,
                 transactionId: paymentIntent.id,
                 date: new Date().toLocaleDateString(),
+                email: user?.email,
             }
             console.log(purchaseInfo);
             // closeModal();
 
             try {
-                const { data } = await axiosSecure.post('/purchase-coin', { purchaseInfo })
+                const { data } = await axiosSecure.post('/purchase-coin', purchaseInfo)
                 console.log(data);
                 if (data.insertedId) {
                     const newCoin = role?.coin + coinNumber;
@@ -142,7 +142,7 @@ const PaymentCard = ({ closeModal, price, coinNumber }) => {
                         type="submit"
                         disabled={!stripe || !clientSecret || processing}
                     >
-                        Pay {price}
+                        Pay ${price}
                     </button>
                     <button className='bg-orange-500 p-3 rounded-lg' onClick={() => closeModal()}>
                         cancel
