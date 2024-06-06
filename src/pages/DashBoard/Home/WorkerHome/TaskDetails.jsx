@@ -34,6 +34,11 @@ const TaskDetails = () => {
             amount: singleWork?.amount,
             subInfo,
             workerEmail: user?.email,
+            worker: {
+                name: user?.displayName,
+                email: user?.email,
+                image: user?.photoURL,
+            },
             taskProvider: {
                 name: singleWork.taskProvider.name,
                 email: singleWork.taskProvider.email,

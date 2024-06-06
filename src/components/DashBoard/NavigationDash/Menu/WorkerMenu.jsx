@@ -2,6 +2,7 @@ import NavigationDash from "../NavigationDash";
 import { FaHome } from "react-icons/fa";
 import { FaTasks } from "react-icons/fa";
 import { IoIosCloudDone } from "react-icons/io";
+import { PiHandWithdrawFill } from "react-icons/pi";
 
 const WorkerMenu = () => {
     return (
@@ -20,6 +21,11 @@ const WorkerMenu = () => {
                 label='My submission'
                 address='/dashboard/my-submission'
                 icon={IoIosCloudDone} />
+
+            <NavigationDash
+                label='WithDraw'
+                address='/dashboard/withDraw'
+                icon={PiHandWithdrawFill} />
         </div>
     );
 };

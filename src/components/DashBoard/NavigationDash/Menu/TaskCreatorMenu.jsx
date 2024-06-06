@@ -4,6 +4,7 @@ import { MdAddTask } from "react-icons/md";
 import { BsListTask } from "react-icons/bs";
 import { BiSolidPurchaseTag } from "react-icons/bi";
 import { MdOutlineManageHistory } from "react-icons/md";
+import { VscPreview } from "react-icons/vsc";
 
 const TaskCreatorMenu = () => {
     return (
@@ -12,6 +13,11 @@ const TaskCreatorMenu = () => {
                 label='Home'
                 address='/dashboard'
                 icon={FaHome} />
+
+            <NavigationDash
+                label='Review Task'
+                address='/dashboard/reviewTask'
+                icon={VscPreview} />
 
             <NavigationDash
                 label='Add Task'

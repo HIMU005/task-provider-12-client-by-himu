@@ -17,6 +17,8 @@ import ManageUser from "../pages/DashBoard/Home/AdminHome/ManageUser";
 import ManageTasks from "../pages/DashBoard/Home/AdminHome/ManageTasks";
 import UpdateMyTask from "../pages/DashBoard/Home/TaskCreatorMenu/UpdateMyTask";
 import TaskDetails from "../pages/DashBoard/Home/WorkerHome/TaskDetails";
+import WithDraw from "../pages/DashBoard/Home/WorkerHome/WithDraw";
+import ReviewATask from "../pages/DashBoard/Home/TaskCreatorMenu/ReviewATask";
 
 export const router = createBrowserRouter([
     {
@@ -60,11 +62,19 @@ export const router = createBrowserRouter([
                 path: 'my-submission',
                 element: <Mysubmission />
             },
+            {
+                path: 'withDraw',
+                element: <WithDraw />
+            },
 
             // task creator routes 
             {
                 path: 'add-task',
                 element: <AddTask />,
+            },
+            {
+                path: 'reviewTask',
+                element: <ReviewATask />
             },
             {
                 path: 'my-task',
