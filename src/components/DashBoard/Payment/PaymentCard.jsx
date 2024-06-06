@@ -1,7 +1,6 @@
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
 import PropTypes from 'prop-types'; // ES6
-// import { loadStripe } from '@stripe/stripe-js'
-// const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY)
+
 
 import './PaymentCard.css'
 import { useEffect, useState } from 'react';
@@ -9,13 +8,15 @@ import useAxiosSecure from '../../../Hooks/useAxiosSecure';
 import useAuth from '../../../Hooks/useAuth';
 import toast from 'react-hot-toast';
 import useInfo from '../../../Hooks/useInfo';
+import { useNavigate } from 'react-router-dom';
 const PaymentCard = ({ closeModal, price, coinNumber }) => {
     const stripe = useStripe();
     const elements = useElements();
     const axiosSecure = useAxiosSecure();
+    const navigate = useNavigate();
     const { user } = useAuth();
     const [clientSecret, setClientSecret] = useState("");
-    const [role] = useInfo();
+    const [role, , refetch] = useInfo();
     const [cardError, setCardError] = useState('')
     const [processing, setProcessing] = useState(false)
     useEffect(() => {
@@ -28,14 +29,9 @@ const PaymentCard = ({ closeModal, price, coinNumber }) => {
 
     //   get clientSecret
     const getClientSecret = async price => {
-        const { data } = await axiosSecure.post(`/create-payment-intent`, price)
-        console.log('clientSecret from server--->', data)
+        const { data } = await axiosSecure.post(`/create-payment-intent`, { price })
         setClientSecret(data.clientSecret)
     }
-    console.log(32, stripe)
-    // console.log(33, clientSecret)
-    // console.log(34, processing)
-
 
     const handleSubmit = async (event) => {
         // Block native form submission.
@@ -94,17 +90,24 @@ const PaymentCard = ({ closeModal, price, coinNumber }) => {
                 coinNumber,
                 price,
                 transactionId: paymentIntent.id,
-                date: new Date(),
+                date: new Date().toLocaleDateString(),
             }
-            closeModal();
+            console.log(purchaseInfo);
+            // closeModal();
+
             try {
-                const { data } = await axiosSecure.post('/purchase-coin', purchaseInfo)
+                const { data } = await axiosSecure.post('/purchase-coin', { purchaseInfo })
+                console.log(data);
                 if (data.insertedId) {
                     const newCoin = role?.coin + coinNumber;
+                    console.log(newCoin);
                     const update = await axiosSecure.patch(`/user/${user?.email}`, { newCoin })
-                    if (update.modifiedCount) {
+                    console.log(update);
+                    if (update.data.modifiedCount) {
                         toast.success('coin Purchase successful. Coin add in your profile')
+                        refetch();
                         closeModal();
+                        navigate('/dashBoard/payment-history');
                     }
                 }
             } catch (err) {
