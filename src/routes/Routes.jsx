@@ -19,6 +19,7 @@ import UpdateMyTask from "../pages/DashBoard/Home/TaskCreatorMenu/UpdateMyTask";
 import TaskDetails from "../pages/DashBoard/Home/WorkerHome/TaskDetails";
 import WithDraw from "../pages/DashBoard/Home/WorkerHome/WithDraw";
 import ReviewATask from "../pages/DashBoard/Home/TaskCreatorMenu/ReviewATask";
+import ApprovedSubmission from "../pages/DashBoard/Home/WorkerHome/ApprovedSubmission";
 
 export const router = createBrowserRouter([
     {
@@ -49,6 +50,10 @@ export const router = createBrowserRouter([
             {
                 index: true,
                 element: <DashBoardHome />,
+            },
+            {
+                path: 'approved-submission',
+                element: <ApprovedSubmission />
             },
             {
                 path: "task-list",

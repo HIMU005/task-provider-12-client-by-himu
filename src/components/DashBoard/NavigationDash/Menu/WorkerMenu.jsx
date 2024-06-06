@@ -13,6 +13,11 @@ const WorkerMenu = () => {
                 icon={FaHome} />
 
             <NavigationDash
+                label='Approved Submission'
+                address='/dashboard/approved-submission'
+                icon={FaHome} />
+
+            <NavigationDash
                 label='Task List'
                 address='/dashboard/task-list'
                 icon={FaTasks} />
