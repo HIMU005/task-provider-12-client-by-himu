@@ -2,11 +2,13 @@ import toast from "react-hot-toast";
 import useAuth from "../../Hooks/useAuth";
 import useAxiosCommon from "../../Hooks/useAxiosCommon";
 import { FcGoogle } from "react-icons/fc";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const Login = () => {
     const navigate = useNavigate();
     const axiosCommon = useAxiosCommon();
+    const location = useLocation();
+    const from = location?.state || '/'
     const {
         signInUser,
         loading,
@@ -23,7 +25,7 @@ const Login = () => {
         try {
             setLoading(true);
             await signInUser(email, password)
-            navigate('/');
+            navigate(from);
         } catch (err) {
             console.log(err);
             toast.error(err.message);
@@ -49,12 +51,11 @@ const Login = () => {
                     coin: 10,
                 }
                 const userResponse = await axiosCommon.post('/users', userInfo);
-                console.log(userResponse);
                 if (userResponse.insertedId) {
                     toast.success("Your information save in out database")
                 }
             }
-            navigate('/');
+            navigate(from);
 
         } catch (err) {
             console.log(err);
