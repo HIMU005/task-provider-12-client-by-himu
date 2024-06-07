@@ -4,8 +4,11 @@ import { imageUpload } from "../../api/imageUpload";
 import toast from 'react-hot-toast'
 import useAuth from "../../Hooks/useAuth";
 import useAxiosCommon from "../../Hooks/useAxiosCommon";
+import { useForm } from "react-hook-form";
+
 
 const Register = () => {
+    const { register, handleSubmit, reset, formState: { errors } } = useForm();
     const {
         loading,
         createUser,
@@ -16,15 +19,14 @@ const Register = () => {
     const axiosCommon = useAxiosCommon();
     const navigate = useNavigate();
 
-    const handleSubmit = async e => {
-        e.preventDefault();
-        const form = e.target;
-        const role = form.role.value;
-        const name = form.name.value;
-        const email = form.email.value;
-        const password = form.password.value;
+    const onSubmit = async data => {
+        setLoading(true);
+        const role = data.role;
+        const name = data.name;
+        const email = data.email;
+        const password = data.password;
+        const image = data.image[0];
         let coin;
-        const image = form.image.files[0];
         if (role === 'worker') {
             coin = 10;
         }
@@ -34,7 +36,6 @@ const Register = () => {
 
 
         try {
-            setLoading(true);
             const photo = await imageUpload(image);
             await createUser(email, password);
             await updateUserProfile(name, photo);
@@ -42,13 +43,14 @@ const Register = () => {
             const { data } = await axiosCommon.post('/users', userInfo);
             if (data.insertedId) {
                 toast.success("Your information save in out database")
+                reset();
             }
             navigate('/');
         } catch (err) {
             toast.error(err.message)
         }
-
     }
+
 
     const handleGoogleSignIn = async () => {
         try {
@@ -120,7 +122,8 @@ const Register = () => {
                                 description
                             </p>
 
-                            <form onSubmit={handleSubmit} className="mt-8 grid grid-cols-6 gap-6">
+                            <form onSubmit={handleSubmit(onSubmit)} className="mt-8 grid grid-cols-6 gap-6">
+
                                 {/* name  */}
                                 <div className="col-span-6 ">
                                     <label htmlFor="FirstName" className="block text-sm font-medium text-gray-700">
@@ -129,12 +132,12 @@ const Register = () => {
 
                                     <input
                                         type="text"
-
                                         id="FirstName"
-                                        name="name"
-                                        // className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
-                                        className='w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-rose-500 bg-gray-200 text-gray-900'
+                                        // name="name"
+                                        {...register("name", { required: true })} className='w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-rose-500 bg-gray-200 text-gray-900'
                                     />
+                                    {errors.name && <span className="text-red-600">Name is required</span>}
+
                                 </div>
 
                                 {/* email  */}
@@ -144,10 +147,11 @@ const Register = () => {
                                     <input
                                         type="email"
                                         id="Email"
-                                        name="email"
-                                        // className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
+                                        // name="email"
+                                        {...register("email", { required: true })}
                                         className='w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-rose-500 bg-gray-200 text-gray-900'
                                     />
+                                    {errors.email && <span className="text-red-600">Name is required</span>}
                                 </div>
 
 
@@ -158,10 +162,19 @@ const Register = () => {
                                     <input
                                         type="password"
                                         id="Password"
-                                        name="password"
-                                        // className="mt-1 w-full rounded-md bg-white text-sm text-gray-700 shadow-sm border-blue-400"
+                                        placeholder="******"
+                                        {...register("password", {
+                                            required: true,
+                                            minLength: 6,
+                                            maxLength: 20,
+                                            pattern: /(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z])/
+                                        })}
                                         className='w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-rose-500 bg-gray-200 text-gray-900'
                                     />
+                                    {errors.password?.type === 'required' && <p className="text-red-600">Password is required</p>}
+                                    {errors.password?.type === 'minLength' && <p className="text-red-600">Password must be 6 characters</p>}
+                                    {errors.password?.type === 'maxLength' && <p className="text-red-600">Password must be less than 20 characters</p>}
+                                    {errors.password?.type === 'pattern' && <p className="text-red-600">Password must have one Uppercase one lower case, one number and one special character.</p>}
                                 </div>
                                 {/* upload image  */}
                                 <div className="col-span-6">
@@ -169,23 +182,26 @@ const Register = () => {
                                         Select Image:
                                     </label>
                                     <input className="border-primary border-2 px-2 py-3"
-                                        required
+                                        // required
                                         type='file'
                                         id='image'
-                                        name='image'
+                                        // name='image'
                                         accept='image/*'
+                                        {...register("image", { required: true })}
                                     />
+                                    {errors.image && <span className="text-red-600">Name is required</span>}
+
                                 </div>
+
+
                                 {/* select role  */}
-
-
 
                                 <div className="col-span-6 ">
                                     <label htmlFor="Role" className="block text-sm font-medium text-gray-700">
                                         Choose your role
                                     </label>
 
-                                    <select name="role" id="cars">
+                                    <select {...register("role", { required: true })} id="role">
                                         <option value="worker">Worker</option>
                                         <option value="task-creator">Task Creator</option>
                                     </select>
@@ -199,12 +215,12 @@ const Register = () => {
                                         className="inline-block shrink-0 rounded-md border border-blue-600 bg-blue-600 px-12 py-3 text-sm font-medium text-white transition hover:bg-transparent hover:text-blue-600 focus:outline-none focus:ring active:text-blue-500"
                                         value="Create an account" />
 
-                                    <p className="mt-4 text-sm text-gray-500 sm:mt-0">
-                                        Already have an account?
-                                        <Link to={'/login'} href="#" className="text-gray-700 underline">Log in</Link>.
-                                    </p>
                                 </div>
                             </form>
+                            <p className="mt-4 text-sm text-gray-500 sm:mt-0">
+                                Already have an account?
+                                <Link to={'/login'} href="#" className="text-gray-700 underline">Log in</Link>.
+                            </p>
 
                             {/* google login here  */}
                             <div className='flex items-center pt-4 space-x-1'>
