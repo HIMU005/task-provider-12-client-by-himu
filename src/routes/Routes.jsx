@@ -20,6 +20,7 @@ import TaskDetails from "../pages/DashBoard/Home/WorkerHome/TaskDetails";
 import WithDraw from "../pages/DashBoard/Home/WorkerHome/WithDraw";
 import ReviewATask from "../pages/DashBoard/Home/TaskCreatorMenu/ReviewATask";
 import ApprovedSubmission from "../pages/DashBoard/Home/WorkerHome/ApprovedSubmission";
+import WithDrawRequest from "../pages/DashBoard/Home/AdminHome/WithDrawRequest";
 
 export const router = createBrowserRouter([
     {
@@ -105,9 +106,13 @@ export const router = createBrowserRouter([
                 element: <ManageUser />
             },
             {
+                path: 'withdrawRequest',
+                element: <WithDrawRequest />
+            },
+            {
                 path: 'manage-tasks',
                 element: <ManageTasks />
-            }
+            },
         ]
 
     }

@@ -2,12 +2,14 @@ import { useState } from "react";
 import useAuth from "../../../../Hooks/useAuth";
 import toast from "react-hot-toast";
 import useAxiosSecure from "../../../../Hooks/useAxiosSecure";
+import { useNavigate } from "react-router-dom";
 
 const WithDraw = () => {
     const [coin, setCoin] = useState(0);
     const [amount, setAmount] = useState(0);
     const { user } = useAuth();
     const axiosSecure = useAxiosSecure();
+    const navigate = useNavigate();
     const handleCoinChange = (e) => {
         const coinValue = e.target.value;
         setCoin(coinValue);
@@ -28,15 +30,18 @@ const WithDraw = () => {
         const accountNumber = form.accountNumber.value;
         const workerName = user?.displayName;
         const workerEmail = user?.email;
+        const withDrawTime = new Date().toLocaleDateString();
 
         const withDrawData = {
-            amount, coin: coinNumber, paymentSystem, accountNumber, workerEmail, workerName
+            amount, coin: coinNumber, paymentSystem, accountNumber, workerEmail, workerName, withDrawTime
         }
 
         try {
             const { data } = await axiosSecure.post('/withDraw', withDrawData);
             if (data?.insertedId) {
                 toast.success("Request approved wait for Admin Approval");
+                form.reset();
+                navigate('/dashboard');
             }
         } catch (err) {
             console.log(err);
@@ -55,7 +60,7 @@ const WithDraw = () => {
                                 <input
                                     name="coin"
                                     className='w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-rose-500 bg-gray-200 text-gray-900'
-                                    placeholder="Task name"
+                                    placeholder="withDraw Coin amount"
                                     type="number"
                                     id="name"
                                     onChange={handleCoinChange}
@@ -64,7 +69,7 @@ const WithDraw = () => {
                             </div>
 
                             <div>
-                                <label htmlFor="Email" className="block text-sm font-medium text-gray-700"> WithDraw amount </label>
+                                <label htmlFor="Email" className="block text-sm font-medium text-gray-700"> WithDraw amount $ </label>
                                 <input
                                     name="amount"
                                     className='w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-rose-500 bg-gray-200 text-gray-900'
@@ -73,7 +78,7 @@ const WithDraw = () => {
                                     id="name"
                                     required
                                     disabled
-                                    value={amount}
+                                    value={`${amount}`}
                                     readOnly
                                 />
                             </div>

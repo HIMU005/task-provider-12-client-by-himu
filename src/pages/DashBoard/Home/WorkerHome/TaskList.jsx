@@ -1,8 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
-import { axiosSecure } from "../../../../Hooks/useAxiosSecure";
 import TaskCard from "../../../../components/DashBoard/Worker/TaskCard";
+import useAxiosSecure from "../../../../Hooks/useAxiosSecure";
 
 const TaskList = () => {
+    const axiosSecure = useAxiosSecure();
     const { data: works = [] } = useQuery({
         queryKey: ['works'],
         queryFn: async () => {

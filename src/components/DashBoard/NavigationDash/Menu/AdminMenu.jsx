@@ -2,6 +2,7 @@ import NavigationDash from "../NavigationDash";
 import { FaHome } from "react-icons/fa";
 import { FcManager } from "react-icons/fc";
 import { MdOutlineManageHistory } from "react-icons/md";
+import { PiHandWithdrawDuotone } from "react-icons/pi";
 
 const AdminMenu = () => {
     return (
@@ -10,6 +11,11 @@ const AdminMenu = () => {
                 label='Home'
                 address='/dashboard'
                 icon={FaHome} />
+
+            <NavigationDash
+                label='Withdraw Request'
+                address='/dashboard/withdrawRequest'
+                icon={PiHandWithdrawDuotone} />
 
             <NavigationDash
                 label='Manage Users'
