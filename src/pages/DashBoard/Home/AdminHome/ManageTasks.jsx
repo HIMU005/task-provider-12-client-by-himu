@@ -4,7 +4,7 @@ import ManageTaskRow from "../../../../components/DashBoard/TableRow/ManageTaskR
 
 const ManageTasks = () => {
     const axiosSecure = useAxiosSecure();
-    const { data: tasks = [] } = useQuery({
+    const { data: tasks = [], refetch } = useQuery({
         queryKey: ['tasks'],
         queryFn: async () => {
             const { data } = await axiosSecure.get('/tasks');
@@ -36,6 +36,7 @@ const ManageTasks = () => {
                                 key={task._id}
                                 task={task}
                                 idx={idx}
+                                refetch={refetch}
                             />)
                     }
 
