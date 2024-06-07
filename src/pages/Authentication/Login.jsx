@@ -26,6 +26,7 @@ const Login = () => {
             setLoading(true);
             await signInUser(email, password)
             navigate(from);
+            setLoading(false)
         } catch (err) {
             console.log(err);
             toast.error(err.message);
@@ -56,10 +57,12 @@ const Login = () => {
                 }
             }
             navigate(from);
+            setLoading(false)
 
         } catch (err) {
             console.log(err);
-            toast.error(err.message)
+            toast.error(err.message);
+            setLoading(false);
         }
     }
     return (

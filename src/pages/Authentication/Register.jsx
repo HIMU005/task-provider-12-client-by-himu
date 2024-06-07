@@ -20,7 +20,6 @@ const Register = () => {
     const navigate = useNavigate();
 
     const onSubmit = async data => {
-        setLoading(true);
         const role = data.role;
         const name = data.name;
         const email = data.email;
@@ -44,10 +43,12 @@ const Register = () => {
             if (data.insertedId) {
                 toast.success("Your information save in out database")
                 reset();
+                setLoading(false)
             }
             navigate('/');
         } catch (err) {
             toast.error(err.message)
+            setLoading(false)
         }
     }
 
@@ -71,11 +72,13 @@ const Register = () => {
                     toast.success("Your information save in out database")
                 }
                 navigate('/');
+                setLoading(false)
             }
 
         } catch (err) {
             console.log(err);
             toast.error(err.message)
+            setLoading(false)
         }
     }
 

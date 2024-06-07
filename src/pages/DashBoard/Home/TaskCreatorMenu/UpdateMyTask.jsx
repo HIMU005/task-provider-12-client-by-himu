@@ -2,12 +2,20 @@ import { useState } from 'react';
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css';
 import toast from 'react-hot-toast';
-import { useLoaderData, useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import useAxiosSecure from '../../../../Hooks/useAxiosSecure';
+import { useQuery } from '@tanstack/react-query';
 
 const UpdateMyTask = () => {
     const axiosSecure = useAxiosSecure();
-    const taskData = useLoaderData();
+    const { id } = useParams();
+    const { data: taskData = [] } = useQuery({
+        queryKey: ['taskData'],
+        queryFn: async () => {
+            const { data } = await axiosSecure.get(`/task/${id}`);
+            return data.filter(task => task.taskNumber > 0);
+        }
+    })
     const navigate = useNavigate();
     const { amount, completionDate, subInfo, taskDetails, taskName, taskNumber, } = taskData;
     const [startDate, setStartDate] = useState(new Date(completionDate))

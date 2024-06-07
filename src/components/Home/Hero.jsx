@@ -7,19 +7,18 @@ import 'swiper/css/navigation';
 
 import { Autoplay, Pagination, Navigation } from 'swiper/modules';
 import SwipeIt from './SwipeIt';
-import useAxiosSecure from '../../Hooks/useAxiosSecure';
 import { useQuery } from '@tanstack/react-query';
+import useAxiosCommon from '../../Hooks/useAxiosCommon';
 
 const Hero = () => {
-    const axiosSecure = useAxiosSecure();
+    const axiosCommon = useAxiosCommon
     const { data: heros = [] } = useQuery({
         queryKey: ['heros'],
         queryFn: async () => {
-            const { data } = await axiosSecure.get('/hero');
+            const { data } = await axiosCommon.get('/hero');
             return data;
         }
     })
-    console.log(heros);
     return (
         <>
             <Swiper
