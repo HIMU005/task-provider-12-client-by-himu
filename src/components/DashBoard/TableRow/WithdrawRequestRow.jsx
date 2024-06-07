@@ -1,7 +1,29 @@
 import PropTypes from 'prop-types';
+import useAxiosSecure from '../../../Hooks/useAxiosSecure';
+import toast from 'react-hot-toast';
 
-const WithdrawRequestRow = ({ value }) => {
-    const { workerName, amount, coin, accountNumber, paymentSystem, withDrawTime } = value;
+const WithdrawRequestRow = ({ value, refetch }) => {
+    const { workerName, workerEmail, amount, coin, accountNumber, paymentSystem, withDrawTime, _id } = value;
+    const axiosSecure = useAxiosSecure();
+    const handleConfirm = async () => {
+        const worker = await axiosSecure.get(`/user/${workerEmail}`)
+        const newCoin = worker?.data?.coin - coin;
+        try {
+            const { data } = await axiosSecure.patch(`/user/${workerEmail}`, { newCoin })
+            if (data.modifiedCount) {
+                const deleteCollection = await axiosSecure.delete(`/withDraw/${_id}`)
+                if (deleteCollection.data.deletedCount) {
+                    toast.success(`$ ${amount} paid to ${workerName}`)
+                    refetch();
+                }
+            }
+        } catch (err) {
+            console.log(err);
+            toast.error(err.message)
+        }
+
+
+    }
     return (
         <tr className='text-center'>
             <td className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">{workerName}</td>
@@ -11,7 +33,7 @@ const WithdrawRequestRow = ({ value }) => {
             <td className="whitespace-nowrap px-4 py-2 text-gray-700">{paymentSystem}</td>
             <td className="whitespace-nowrap px-4 py-2 text-gray-700">{withDrawTime}</td>
             <td className="whitespace-nowrap px-4 py-2">
-                <button className='btn btn-success btn-outline'>Payment SuccessFull</button>
+                <button onClick={handleConfirm} className='btn btn-success btn-outline'>Payment SuccessFull</button>
             </td>
         </tr>
     );
@@ -20,4 +42,5 @@ const WithdrawRequestRow = ({ value }) => {
 export default WithdrawRequestRow;
 WithdrawRequestRow.propTypes = {
     value: PropTypes.object,
+    refetch: PropTypes.func,
 }

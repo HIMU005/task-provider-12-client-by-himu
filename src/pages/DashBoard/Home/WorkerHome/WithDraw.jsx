@@ -20,7 +20,7 @@ const WithDraw = () => {
     const handleSubmit = async e => {
         e.preventDefault();
         const form = e.target;
-        const coinNumber = form.coin.value;
+        const coinNumber = parseInt(form.coin.value);
         if (coinNumber < 20 || coinNumber > 300) {
             toast.error("You can only withdraw between 20 and 300")
             return;

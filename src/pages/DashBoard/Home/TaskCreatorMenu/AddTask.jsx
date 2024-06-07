@@ -21,8 +21,8 @@ const AddTask = () => {
     const handleSubmit = async e => {
         e.preventDefault();
         const form = e.target;
-        const amount = form.amount.value;
-        const taskNumber = form.taskNumber.value;
+        const amount = parseInt(form.amount.value);
+        const taskNumber = parseInt(form.taskNumber.value);
         if (role.coin < amount * taskNumber) {
             toast.error("You don't have sufficient coin to create a task!!! You should buy some coin.");
             navigate('/dashboard/purchase-coin')
@@ -44,6 +44,7 @@ const AddTask = () => {
                     photoURL: user?.photoURL,
                 }
             }
+            console.log(taskData);
             const { data } = await axiosSecure.post('/tasks', taskData);
             if (data.insertedId) {
                 const newCoin = role?.coin - (taskNumber * amount);

@@ -4,7 +4,7 @@ import WithdrawRequestRow from "../../../../components/DashBoard/TableRow/Withdr
 
 const WithDrawRequest = () => {
     const axiosSecure = useAxiosSecure();
-    const { data: withdrawRequests = [] } = useQuery({
+    const { data: withdrawRequests = [], refetch } = useQuery({
         queryKey: ['withdrawRequests'],
         queryFn: async () => {
             const { data } = await axiosSecure.get('/withDraw');
@@ -33,6 +33,7 @@ const WithDrawRequest = () => {
                         <WithdrawRequestRow
                             key={withdrawRequest._id}
                             value={withdrawRequest}
+                            refetch={refetch}
                         />)}
                 </tbody>
             </table>
