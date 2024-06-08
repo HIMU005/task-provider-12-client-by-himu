@@ -6,11 +6,22 @@ import useInfo from "../../Hooks/useInfo"
 import WorkerMenu from "./NavigationDash/Menu/WorkerMenu"
 import TaskCreatorMenu from "./NavigationDash/Menu/TaskCreatorMenu"
 import AdminMenu from "./NavigationDash/Menu/AdminMenu"
+import LoadingSpinner from "../Shared/LoadingSpinner"
+import { FcSettings } from "react-icons/fc"
+import NavigationDash from "./NavigationDash/NavigationDash"
+import { AiOutlineBars } from 'react-icons/ai'
+
 
 const Sidebar = () => {
-    const { logOut } = useAuth()
+    const { logOut, loading } = useAuth()
     const [isActive, setActive] = useState(false)
     const [role, isLoading] = useInfo()
+    const handleToggle = () => {
+        setActive(!isActive)
+    }
+
+    if (isLoading || loading) return <LoadingSpinner />
+
     return (
         <>
             {/* Small Screen Navbar */}
@@ -30,12 +41,12 @@ const Sidebar = () => {
                     </div>
                 </div>
 
-                {/* <button
+                <button
                     onClick={handleToggle}
                     className='mobile-menu-button p-4 focus:outline-none focus:bg-gray-200'
                 >
                     <AiOutlineBars className='h-5 w-5' />
-                </button> */}
+                </button>
             </div>
 
             {/* Sidebar */}
@@ -45,9 +56,9 @@ const Sidebar = () => {
             >
                 <div>
                     <div>
-                        <div className='w-full hidden md:flex px-4 py-2 shadow-lg rounded-lg justify-center items-center bg-rose-100 mx-auto'>
+                        <div className='w-full text-green-500 hidden md:flex px-4 py-2 shadow-lg rounded-lg justify-center items-center bg-rose-100 mx-auto'>
                             <Link to='/'>
-                                TaskProvider big
+                                TaskLinker
                                 {/* <img
                                     // className='hidden md:block'
                                     src='https://i.ibb.co/4ZXzmq5/logo.png'
@@ -78,12 +89,12 @@ const Sidebar = () => {
                     <hr />
 
                     {/* Profile Menu */}
-                    Profile
-                    {/* <MenuItem
+
+                    <NavigationDash
                         label='Profile'
                         address='/dashboard/profile'
                         icon={FcSettings}
-                    /> */}
+                    />
 
                     <button
                         onClick={logOut}

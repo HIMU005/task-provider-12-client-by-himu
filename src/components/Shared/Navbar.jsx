@@ -32,7 +32,7 @@ const Navbar = () => {
                         {links}
                     </ul>
                 </div>
-                <Link to={'/'} className="btn btn-ghost text-xl">Task Provider</Link>
+                <Link to={'/'} className="btn btn-ghost text-xl text-green-500">TaskLinker</Link>
             </div>
             <div className="navbar-center hidden lg:flex">
                 <ul className="menu menu-horizontal px-1">

@@ -25,6 +25,7 @@ import PrivateRoute from "./PrivateRoute";
 import TaskCreatorRoute from "./TaskCreatorRoute";
 import AdminRoute from "./AdminRoute";
 import About from "../pages/Home/About";
+import Profile from "../components/Shared/Profile";
 
 export const router = createBrowserRouter([
     {
@@ -177,6 +178,13 @@ export const router = createBrowserRouter([
                         <AdminRoute>
                             <ManageTasks />
                         </AdminRoute>
+                    </PrivateRoute>
+            },
+            {
+                path: 'profile',
+                element:
+                    <PrivateRoute>
+                        <Profile />
                     </PrivateRoute>
             }
         ]
