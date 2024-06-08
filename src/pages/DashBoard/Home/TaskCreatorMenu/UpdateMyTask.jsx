@@ -1,31 +1,45 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css';
 import toast from 'react-hot-toast';
 import { useNavigate, useParams } from 'react-router-dom';
 import useAxiosSecure from '../../../../Hooks/useAxiosSecure';
 import { useQuery } from '@tanstack/react-query';
+import { parse } from 'date-fns';
 
 const UpdateMyTask = () => {
     const axiosSecure = useAxiosSecure();
     const { id } = useParams();
-    const { data: taskData = [] } = useQuery({
-        queryKey: ['taskData'],
+    // console.log(id);
+    const { data: taskData = [], isLoading } = useQuery({
+        queryKey: ['taskData', id],
+        enabled: !!id || isLoading,
         queryFn: async () => {
             const { data } = await axiosSecure.get(`/task/${id}`);
-            return data.filter(task => task.taskNumber > 0);
+            return data;
         }
     })
     const navigate = useNavigate();
     const { amount, completionDate, subInfo, taskDetails, taskName, taskNumber, } = taskData;
-    const [startDate, setStartDate] = useState(new Date(completionDate))
 
+    const [startDate, setStartDate] = useState(null);
+
+    useEffect(() => {
+        if (completionDate) {
+            const parseDate = (dateStr) => {
+                return parse(dateStr, 'M/d/yyyy', new Date());
+            };
+            const dateObject = parseDate(completionDate);
+            setStartDate(dateObject);
+        }
+    }, [completionDate]);
     const handleSubmit = async e => {
         e.preventDefault();
         const form = e.target;
         const taskName = form.taskName.value;
         const subInfo = form.subInfo.value;
         const taskDetails = form.taskDetails.value;
+        // console.log(startDate);
 
         const updateTask = { taskName, subInfo, taskDetails }
 
@@ -93,19 +107,16 @@ const UpdateMyTask = () => {
                                     />
                                 </div>
 
-
-                                <div className='flex flex-col gap-2 '>
-                                    <label className='block text-sm font-medium text-gray-700"'>Deadline</label>
-
-                                    {/* Date Picker Input Field */}
+                                <div className="flex flex-col gap-2">
+                                    <label className="block text-sm font-medium text-gray-700">Deadline</label>
                                     <DatePicker
                                         disabled
-                                        className='w-full px-3 cursor-not-allowed py-2 border rounded-md border-gray-300 focus:outline-rose-500 bg-gray-200 text-gray-900'
+                                        className="w-full px-3 cursor-not-allowed py-2 border rounded-md border-gray-300 focus:outline-rose-500 bg-gray-200 text-gray-900"
                                         selected={startDate}
                                         onChange={date => setStartDate(date)}
-                                        defaultValue={startDate}
                                     />
                                 </div>
+
 
                                 <div>
                                     <label htmlFor="Email" className="block text-sm font-medium text-gray-700"> Submission Information  </label>
@@ -137,9 +148,6 @@ const UpdateMyTask = () => {
                                 </div>
 
                             </div>
-
-
-
 
 
                             <div>

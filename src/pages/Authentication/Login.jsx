@@ -26,7 +26,7 @@ const Login = () => {
 
         try {
             const result = await signInUser(email, password)
-            console.log(result.user);
+            setUser(result.user)
             navigate(from);
             setLoading(false)
         } catch (err) {
