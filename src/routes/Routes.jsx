@@ -23,6 +23,7 @@ import ApprovedSubmission from "../pages/DashBoard/Home/WorkerHome/ApprovedSubmi
 import WithDrawRequest from "../pages/DashBoard/Home/AdminHome/WithDrawRequest";
 import PrivateRoute from "./PrivateRoute";
 import TaskCreatorRoute from "./TaskCreatorRoute";
+import AdminRoute from "./AdminRoute";
 
 export const router = createBrowserRouter([
     {
@@ -148,16 +149,31 @@ export const router = createBrowserRouter([
             // admin routes 
             {
                 path: 'manage-users',
-                element: <ManageUser />
+                element:
+                    <PrivateRoute>
+                        <AdminRoute>
+                            <ManageUser />
+                        </AdminRoute>
+                    </PrivateRoute>
             },
             {
                 path: 'withdrawRequest',
-                element: <WithDrawRequest />
+                element:
+                    <PrivateRoute>
+                        <AdminRoute>
+                            <WithDrawRequest />
+                        </AdminRoute>
+                    </PrivateRoute>
             },
             {
                 path: 'manage-tasks',
-                element: <ManageTasks />
-            },
+                element:
+                    <PrivateRoute>
+                        <AdminRoute>
+                            <ManageTasks />
+                        </AdminRoute>
+                    </PrivateRoute>
+            }
         ]
 
     }

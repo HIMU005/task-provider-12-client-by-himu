@@ -8,8 +8,7 @@ const TaskCreatorRoute = ({ children }) => {
     const { user, loading } = useAuth();
 
     if (isLoading || loading) return <h3>Wait</h3>
-    // console.log(isLoading);
-    // console.log(role.role);
+
     if (role.role === 'task-creator' && user) return children
     return <Navigate to='/dashboard' />
 }

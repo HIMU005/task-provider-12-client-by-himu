@@ -38,6 +38,7 @@ const UserRow = ({ user, handleDelete, refetch }) => {
                     name="newRole"
                     defaultValue={user?.role}
                     onChange={handleRoleChange}
+                    disabled={user?.role === 'admin'}
                     id=""
                     className={` 
                                 ${user?.role === 'admin' ? 'text-blue-500' : ''}
@@ -50,19 +51,18 @@ const UserRow = ({ user, handleDelete, refetch }) => {
                     <option className="text-red-500" value="task-creator">Task Creator</option>
                 </select></td>
             <td onClick={handleUpdate} className="whitespace-nowrap ml-6 text-center py-2 text-gray-700">
-                Update
+                <button className='btn btn-info btn-outline'> Update</button>
             </td>
             <td onClick={handleDelete} className="whitespace-nowrap ml-6 text-center py-2 text-gray-700">
-                Delete
+                <button className='btn btn-warning btn-outline'> Delete</button>
             </td>
         </tr>
     );
 };
 
-UserRow.propsTypes = {
+UserRow.propTypes = {
     user: PropTypes.object,
     handleDelete: PropTypes.func,
-    displayName: PropTypes.string,
-    handleUpdate: PropTypes.func,
+    refetch: PropTypes.func,
 }
 export default UserRow;
