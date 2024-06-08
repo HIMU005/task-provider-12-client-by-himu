@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import useAuth from "../../../../Hooks/useAuth";
 import useAxiosSecure from "../../../../Hooks/useAxiosSecure";
 import TaskCreatorTableRow from "../../../../components/DashBoard/TableRow/TaskCreatorTableRow";
+import { Helmet } from "react-helmet-async";
 
 const MyTasks = () => {
     const { user } = useAuth();
@@ -18,7 +19,9 @@ const MyTasks = () => {
 
     return (
         <div className="overflow-x-auto">
-            <table className="min-w-full divide-y-2 divide-gray-200 bg-white text-sm">
+            <Helmet>
+                <title> Work Provider || Dashboard | My task  </title>
+            </Helmet>            <table className="min-w-full divide-y-2 divide-gray-200 bg-white text-sm">
                 <thead className="ltr:text-left rtl:text-right">
                     <tr>
                         <th className="whitespace-nowrap px-4 text-left py-2 font-medium text-gray-900">Task Title</th>

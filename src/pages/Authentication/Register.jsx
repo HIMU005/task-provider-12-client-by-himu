@@ -5,6 +5,7 @@ import toast from 'react-hot-toast'
 import useAuth from "../../Hooks/useAuth";
 import useAxiosCommon from "../../Hooks/useAxiosCommon";
 import { useForm } from "react-hook-form";
+import { Helmet } from "react-helmet-async";
 
 
 const Register = () => {
@@ -87,7 +88,9 @@ const Register = () => {
 
     return (
         <div>
-            <section className="bg-white">
+            <Helmet>
+                <title> Work Provider || Register  </title>
+            </Helmet>            <section className="bg-white">
                 <div className="lg:grid lg:min-h-screen lg:grid-cols-12">
                     <aside className="relative block h-16 lg:order-last lg:col-span-5 lg:h-full xl:col-span-6">
                         <img

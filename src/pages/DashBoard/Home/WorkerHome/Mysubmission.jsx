@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../../Hooks/useAxiosSecure";
 import useAuth from "../../../../Hooks/useAuth";
 import MysubmissionRow from "../../../../components/DashBoard/TableRow/MysubmissionRow";
+import { Helmet } from "react-helmet-async";
 
 const Mysubmission = () => {
     const axiosSecure = useAxiosSecure();
@@ -16,6 +17,10 @@ const Mysubmission = () => {
     })
     return (
         <div className="overflow-x-auto">
+            <Helmet>
+                <title> Work Provider || Dashboard | Mysubmission  </title>
+            </Helmet>
+
             <table className="min-w-full divide-y-2 divide-gray-200 bg-white text-sm">
                 <thead className="ltr:text-left rtl:text-right">
                     <tr>

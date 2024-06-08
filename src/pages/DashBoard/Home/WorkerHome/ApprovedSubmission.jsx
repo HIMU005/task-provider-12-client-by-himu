@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../../Hooks/useAxiosSecure";
+import { Helmet } from "react-helmet-async";
 
 const ApprovedSubmission = () => {
     const axiosSecure = useAxiosSecure()
@@ -11,9 +12,10 @@ const ApprovedSubmission = () => {
         }
     })
     return (
-
-
         <div className="overflow-x-auto rounded-lg border border-gray-200">
+            <Helmet>
+                <title> Work Provider || Dashboard | Approved submission  </title>
+            </Helmet>
             <table className="min-w-full divide-y-2 divide-gray-200 bg-white text-sm">
                 <thead className="ltr:text-left rtl:text-right">
                     <tr>

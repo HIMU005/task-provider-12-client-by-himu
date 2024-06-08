@@ -7,6 +7,7 @@ import useAuth from "../../../../Hooks/useAuth";
 import useInfo from "../../../../Hooks/useInfo";
 import { useNavigate } from "react-router-dom";
 import useAxiosSecure from "../../../../Hooks/useAxiosSecure";
+import { Helmet } from "react-helmet-async";
 
 
 
@@ -68,7 +69,9 @@ const AddTask = () => {
 
     return (
         <section className="bg-gray-100">
-            <div className="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
+            <Helmet>
+                <title> Work Provider || Dashboard | Add task  </title>
+            </Helmet>            <div className="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
                 {/* <div className="grid grid-cols-1 gap-x-16 gap-y-8 lg:grid-cols-5"> */}
 
                 <div className="rounded-lg bg-white p-8 shadow-lg lg:col-span-3 lg:p-12">

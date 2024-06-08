@@ -6,6 +6,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import useAxiosSecure from '../../../../Hooks/useAxiosSecure';
 import { useQuery } from '@tanstack/react-query';
 import { parse } from 'date-fns';
+import { Helmet } from 'react-helmet-async';
 
 const UpdateMyTask = () => {
     const axiosSecure = useAxiosSecure();
@@ -58,6 +59,9 @@ const UpdateMyTask = () => {
     }
     return (
         <div>
+            <Helmet>
+                <title> Work Provider || Dashboard | Update Task  </title>
+            </Helmet>
             <section className="bg-gray-100">
                 <div className="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
                     {/* <div className="grid grid-cols-1 gap-x-16 gap-y-8 lg:grid-cols-5"> */}

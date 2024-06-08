@@ -24,6 +24,7 @@ import WithDrawRequest from "../pages/DashBoard/Home/AdminHome/WithDrawRequest";
 import PrivateRoute from "./PrivateRoute";
 import TaskCreatorRoute from "./TaskCreatorRoute";
 import AdminRoute from "./AdminRoute";
+import About from "../pages/Home/About";
 
 export const router = createBrowserRouter([
     {
@@ -34,6 +35,10 @@ export const router = createBrowserRouter([
             {
                 path: "/",
                 element: <Home />
+            },
+            {
+                path: "/about",
+                element: <About />
             }
         ],
     },

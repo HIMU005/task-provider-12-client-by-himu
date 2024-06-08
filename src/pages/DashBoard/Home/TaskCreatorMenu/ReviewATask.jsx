@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../../Hooks/useAxiosSecure";
 import ReviewTaskRow from "../../../../components/DashBoard/TableRow/ReviewTaskRow";
+import { Helmet } from "react-helmet-async";
 
 const ReviewATask = () => {
     const axiosSecure = useAxiosSecure();
@@ -12,9 +13,10 @@ const ReviewATask = () => {
         }
     })
     return (
-
-
         <div className="overflow-x-auto" >
+            <Helmet>
+                <title> Work Provider || Dashboard | Review task  </title>
+            </Helmet>
             <table className="min-w-full divide-y-2 divide-gray-200 bg-white text-sm">
                 <thead className="ltr:text-left rtl:text-right">
                     <tr>

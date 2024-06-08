@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../../Hooks/useAxiosSecure";
 import ManageTaskRow from "../../../../components/DashBoard/TableRow/ManageTaskRow";
+import { Helmet } from "react-helmet-async";
 
 const ManageTasks = () => {
     const axiosSecure = useAxiosSecure();
@@ -15,6 +16,9 @@ const ManageTasks = () => {
 
 
         <div className="overflow-x-auto rounded-lg border border-gray-200">
+            <Helmet>
+                <title> Work Provider || Dashboard | Manage Task  </title>
+            </Helmet>
             <table className="min-w-full divide-y-2 divide-gray-200 bg-white text-sm">
                 <thead className="ltr:text-left rtl:text-right">
                     <tr>

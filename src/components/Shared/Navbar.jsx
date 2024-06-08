@@ -7,12 +7,14 @@ const Navbar = () => {
 
     const links = <>
         {!user ? <>
-            <li><NavLink to={'/login'}>Login</NavLink></li>
-            <li><NavLink to={'/sign-up'}>SignUp</NavLink></li>
+            <li><NavLink className='btn' to={'/login'}>Login</NavLink></li>
+            <li><NavLink className='btn' to={'/sign-up'}>SignUp</NavLink></li>
             <li><a href="https://youtu.be/3OOHC_UzrKA?si=r5BUiybMleW2UWhw" target="_blank">Watch Demo</a></li>
+            <li><NavLink className='btn' to={'/about'}>About</NavLink></li>
         </> :
             <>
                 <li><NavLink to={'/dashBoard'}>DashBoard</NavLink></li>
+                <li><NavLink to={'/about'}>About</NavLink></li>
             </>
         }
     </>

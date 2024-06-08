@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../../Hooks/useAxiosSecure";
 import UserRow from "../../../../components/DashBoard/TableRow/UserRow";
+import { Helmet } from "react-helmet-async";
 
 const ManageUser = () => {
     const axiosSecure = useAxiosSecure();
@@ -16,9 +17,10 @@ const ManageUser = () => {
         console.log('delete');
     }
     return (
-
-
         < div className="overflow-x-auto rounded-lg border border-gray-200" >
+            <Helmet>
+                <title> Work Provider || Dashboard | Manage Route   </title>
+            </Helmet>
             <table className="min-w-full divide-y-2 divide-gray-200 bg-white text-sm">
                 <thead className="ltr:text-left rtl:text-right">
                     <tr>

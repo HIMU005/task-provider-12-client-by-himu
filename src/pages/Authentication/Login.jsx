@@ -3,6 +3,7 @@ import useAuth from "../../Hooks/useAuth";
 import useAxiosCommon from "../../Hooks/useAxiosCommon";
 import { FcGoogle } from "react-icons/fc";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 
 const Login = () => {
     const navigate = useNavigate();
@@ -70,6 +71,10 @@ const Login = () => {
     }
     return (
         <div>
+            <Helmet>
+                <title> Work Provider || Login  </title>
+            </Helmet>
+
             <section className="bg-white">
                 <div className="lg:grid lg:min-h-screen lg:grid-cols-12">
                     <aside className="relative block h-16 lg:order-last lg:col-span-5 lg:h-full xl:col-span-6">

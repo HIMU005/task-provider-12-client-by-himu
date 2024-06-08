@@ -11,7 +11,7 @@ import { useQuery } from '@tanstack/react-query';
 import useAxiosCommon from '../../Hooks/useAxiosCommon';
 
 const Hero = () => {
-    const axiosCommon = useAxiosCommon
+    const axiosCommon = useAxiosCommon();
     const { data: heros = [] } = useQuery({
         queryKey: ['heros'],
         queryFn: async () => {

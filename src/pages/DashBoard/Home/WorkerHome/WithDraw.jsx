@@ -3,6 +3,7 @@ import useAuth from "../../../../Hooks/useAuth";
 import toast from "react-hot-toast";
 import useAxiosSecure from "../../../../Hooks/useAxiosSecure";
 import { useNavigate } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 
 const WithDraw = () => {
     const [coin, setCoin] = useState(0);
@@ -50,6 +51,9 @@ const WithDraw = () => {
     }
     return (
         <section className="bg-gray-100">
+            <Helmet>
+                <title> Work Provider || Dashboard | Withdraw  </title>
+            </Helmet>
             <div className="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
 
                 <div className="rounded-lg bg-white p-8 shadow-lg lg:col-span-3 lg:p-12">
