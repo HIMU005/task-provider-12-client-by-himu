@@ -9,11 +9,13 @@ const Login = () => {
     const axiosCommon = useAxiosCommon();
     const location = useLocation();
     const from = location?.state || '/'
+    console.log(from);
     const {
         signInUser,
         loading,
         setLoading,
         GoogleLogin,
+        setUser,
     } = useAuth();
 
     const handleSubmit = async e => {
@@ -23,8 +25,8 @@ const Login = () => {
         const password = form.password.value;
 
         try {
-            setLoading(true);
-            await signInUser(email, password)
+            const result = await signInUser(email, password)
+            console.log(result.user);
             navigate(from);
             setLoading(false)
         } catch (err) {
@@ -42,6 +44,7 @@ const Login = () => {
     const handleGoogleSignIn = async () => {
         try {
             const result = await GoogleLogin();
+            setUser(result?.user)
             const { data } = await axiosCommon.get(`/user/${result?.user?.email}`)
             if (!data) {
                 const userInfo = {

@@ -9,6 +9,8 @@ const PrivateRoute = ({ children }) => {
 
     if (loading) return <h2>Wait</h2>
     if (user) return children;
+    console.log(loading);
+    console.log(user);
     return <Navigate to='/login' state={location.pathname} replace='true' />
 
 };

@@ -22,6 +22,7 @@ import ReviewATask from "../pages/DashBoard/Home/TaskCreatorMenu/ReviewATask";
 import ApprovedSubmission from "../pages/DashBoard/Home/WorkerHome/ApprovedSubmission";
 import WithDrawRequest from "../pages/DashBoard/Home/AdminHome/WithDrawRequest";
 import PrivateRoute from "./PrivateRoute";
+import TaskCreatorRoute from "./TaskCreatorRoute";
 
 export const router = createBrowserRouter([
     {
@@ -91,28 +92,57 @@ export const router = createBrowserRouter([
             // task creator routes 
             {
                 path: 'add-task',
-                element: <AddTask />,
+                element:
+                    <PrivateRoute>
+                        <TaskCreatorRoute>
+                            <AddTask />
+                        </TaskCreatorRoute>
+                    </PrivateRoute>
             },
             {
                 path: 'reviewTask',
-                element: <ReviewATask />
+                element:
+                    <PrivateRoute>
+                        <TaskCreatorRoute>
+                            <ReviewATask />
+                        </TaskCreatorRoute>
+                    </PrivateRoute>
             },
             {
                 path: 'my-task',
-                element: <MyTasks />,
+                element:
+                    <PrivateRoute>
+                        <TaskCreatorRoute>
+                            <MyTasks />
+                        </TaskCreatorRoute>
+                    </PrivateRoute>,
             },
             {
                 path: "update/my-task/:id",
-                element: <UpdateMyTask />,
-                loader: ({ params }) => fetch(`http://localhost:5000/task/${params.id}`)
+                element:
+                    <PrivateRoute>
+                        <TaskCreatorRoute>
+                            <UpdateMyTask />
+                        </TaskCreatorRoute>
+                    </PrivateRoute>,
             },
             {
                 path: 'purchase-coin',
-                element: <PurchaseCoin />,
+                element:
+                    <PrivateRoute>
+                        <TaskCreatorRoute>
+                            <PurchaseCoin />
+                        </TaskCreatorRoute>
+                    </PrivateRoute>,
             },
             {
                 path: 'payment-history',
-                element: <PaymentHistory />,
+                element:
+                    <PrivateRoute>
+                        <TaskCreatorRoute>
+                            <PaymentHistory />
+                        </TaskCreatorRoute>
+                    </PrivateRoute>,
             },
 
             // admin routes 

@@ -10,7 +10,7 @@ const auth = getAuth(app);
 
 const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
     const googleProvider = new GoogleAuthProvider();
     const axiosCommon = useAxiosCommon();
 
@@ -24,6 +24,7 @@ const AuthProvider = ({ children }) => {
         return signInWithEmailAndPassword(auth, email, password);
     }
     const logOut = () => {
+        setLoading(true)
         return signOut(auth);
     }
 
@@ -58,7 +59,7 @@ const AuthProvider = ({ children }) => {
             }
 
             // console.log("current user", currentUser);
-            setLoading(false);
+            // setLoading(false);
         })
         return () => {
             return unsubscribe()
@@ -73,6 +74,7 @@ const AuthProvider = ({ children }) => {
         signInUser,
         logOut,
         updateUserProfile,
+        setUser,
         GoogleLogin,
     }
     return (
