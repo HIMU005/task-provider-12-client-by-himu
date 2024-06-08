@@ -21,6 +21,7 @@ import WithDraw from "../pages/DashBoard/Home/WorkerHome/WithDraw";
 import ReviewATask from "../pages/DashBoard/Home/TaskCreatorMenu/ReviewATask";
 import ApprovedSubmission from "../pages/DashBoard/Home/WorkerHome/ApprovedSubmission";
 import WithDrawRequest from "../pages/DashBoard/Home/AdminHome/WithDrawRequest";
+import PrivateRoute from "./PrivateRoute";
 
 export const router = createBrowserRouter([
     {
@@ -44,33 +45,47 @@ export const router = createBrowserRouter([
     },
     {
         path: '/dashBoard',
-        element: <DashBoardLayout />,
+        element: <PrivateRoute>
+            <DashBoardLayout />
+        </PrivateRoute>,
         errorElement: <h2 className="text-6xl">404</h2>,
         children: [
             // a worker routes 
             {
                 index: true,
-                element: <DashBoardHome />,
+                element: <PrivateRoute>
+                    <DashBoardHome />
+                </PrivateRoute>,
             },
             {
                 path: 'approved-submission',
-                element: <ApprovedSubmission />
+                element: <PrivateRoute>
+                    <ApprovedSubmission />
+                </PrivateRoute>
             },
             {
                 path: "task-list",
-                element: <TaskList />,
+                element: <PrivateRoute>
+                    <TaskList />
+                </PrivateRoute>
             },
             {
                 path: "task-details/:id",
-                element: <TaskDetails />
+                element: <PrivateRoute>
+                    <TaskDetails />
+                </PrivateRoute>
             },
             {
                 path: 'my-submission',
-                element: <Mysubmission />
+                element: <PrivateRoute>
+                    <Mysubmission />
+                </PrivateRoute>
             },
             {
                 path: 'withDraw',
-                element: <WithDraw />
+                element: <PrivateRoute>
+                    <WithDraw />
+                </PrivateRoute>
             },
 
             // task creator routes 

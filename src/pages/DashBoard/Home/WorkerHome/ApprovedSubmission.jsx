@@ -10,7 +10,6 @@ const ApprovedSubmission = () => {
             return data.filter(task => task.status === 'accepted');
         }
     })
-    console.log(approvedSubmissions);
     return (
 
 
