@@ -10,7 +10,7 @@ const Login = () => {
     const axiosCommon = useAxiosCommon();
     const location = useLocation();
     const from = location?.state || '/'
-    console.log(from);
+    // console.log(from);
     const {
         signInUser,
         loading,

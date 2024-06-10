@@ -150,6 +150,7 @@ const PaymentCard = ({ closeModal, price, coinNumber }) => {
                 </div>
             </form>
             {cardError && <p className='text-red-600 ml-8'>{cardError}</p>}
+            For information try this link <a className='btn btn-link' href="https://docs.stripe.com/testing" target='_blank'>click here</a>
         </>
     );
 };
