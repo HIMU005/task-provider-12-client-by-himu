@@ -11,7 +11,7 @@ const Home = () => {
             <Helmet>
                 <title> Work Provider || Home  </title>
             </Helmet>
-            <Hero />
+            <Hero className="-z-50" />
             <Featured />
             <HowItWork />
             <TopEarner />

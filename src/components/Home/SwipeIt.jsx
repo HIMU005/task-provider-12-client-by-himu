@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 const SwipeIt = ({ hero }) => {
     const { title, description, backgroundImage, buttonText } = hero;
     return (
-        <div>
+        <div className='-z-50'>
             <section
                 style={{
                     backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${backgroundImage})`

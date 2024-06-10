@@ -9,7 +9,7 @@ const UserLogo = () => {
         logOut();
     }
     return (
-        <div className="navbar-end">
+        <div className="navbar-end ">
             {user &&
                 <div className="flex gap-3 justify-end">
                     {/* dynamic coin */}
@@ -23,15 +23,15 @@ const UserLogo = () => {
                         </div>
                     </div>
                     {/*  */}
-                    <div className="dropdown dropdown-end">
+                    <div className="dropdown dropdown-end ">
                         <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
                             <div title={user?.displayName} className="w-10 rounded-full">
                                 <img alt={user?.email} src={user?.photoURL} />
                             </div>
                         </div>
-                        <ul tabIndex={0} className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52">
+                        <ul tabIndex={0} className="mt-3 z-50 p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52">
 
-                            <li className="btn" onClick={handleSignOut}>Logout</li>
+                            <li className="btn -z-50" onClick={handleSignOut}>Logout</li>
                         </ul>
                     </div>
                 </div>
