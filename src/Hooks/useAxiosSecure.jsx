@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 export const axiosSecure = axios.create({
     // baseURL: "http://localhost:5000",
-    baseURL: "https://taskmanagement-eg027ticz-himu005s-projects.vercel.app",
+    baseURL: "https://task-management-himu005.vercel.app",
 })
 
 const useAxiosSecure = () => {
