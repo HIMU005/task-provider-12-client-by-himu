@@ -26,12 +26,13 @@ import TaskCreatorRoute from "./TaskCreatorRoute";
 import AdminRoute from "./AdminRoute";
 import About from "../pages/Home/About";
 import Profile from "../components/Shared/Profile";
+import ErrorPage from "../pages/ErrorPage";
 
 export const router = createBrowserRouter([
     {
         path: '/',
         element: <Main />,
-        errorElement: <h3 className="text-5xl">404</h3>,
+        errorElement: <ErrorPage />,
         children: [
             {
                 path: "/",
@@ -56,7 +57,7 @@ export const router = createBrowserRouter([
         element: <PrivateRoute>
             <DashBoardLayout />
         </PrivateRoute>,
-        errorElement: <h2 className="text-6xl">404</h2>,
+        errorElement: <ErrorPage />,
         children: [
             // a worker routes 
             {
@@ -188,7 +189,6 @@ export const router = createBrowserRouter([
                     </PrivateRoute>
             }
         ]
-
     }
 
 

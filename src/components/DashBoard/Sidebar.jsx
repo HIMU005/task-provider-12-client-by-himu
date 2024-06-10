@@ -29,7 +29,7 @@ const Sidebar = () => {
                 <div>
                     <div className='block cursor-pointer p-4 font-bold'>
                         <Link to='/'>
-                            TaskProvider small
+                            TaskProvider
                             {/* <img
                                 // className='hidden md:block'
                                 src='https://i.ibb.co/4ZXzmq5/logo.png'

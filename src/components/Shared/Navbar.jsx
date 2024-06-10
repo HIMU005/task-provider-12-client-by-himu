@@ -1,7 +1,7 @@
 import { Link, NavLink } from "react-router-dom";
 import useAuth from "../../Hooks/useAuth";
 import UserLogo from "./UserLogo";
-
+import img from '../../../public/taskcreator.jpeg'
 const Navbar = () => {
     const { user } = useAuth();
 
@@ -32,7 +32,10 @@ const Navbar = () => {
                         {links}
                     </ul>
                 </div>
-                <Link to={'/'} className="btn btn-ghost text-xl text-green-500">TaskLinker</Link>
+                {/* <Link to={'/'} className="btn btn-ghost text-xl text-green-500">TaskLinker</Link> */}
+                <Link to={'/'}>
+                    <img className="h-10" src={img} alt="" />
+                </Link>
             </div>
             <div className="navbar-center hidden lg:flex">
                 <ul className="menu menu-horizontal px-1">
