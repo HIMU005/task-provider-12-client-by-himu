@@ -1,24 +1,28 @@
-
 import { useQuery } from '@tanstack/react-query'
-
 import LoadingSpinner from '../../../../components/Shared/LoadingSpinner'
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from "recharts";
 import useAxiosSecure from '../../../../Hooks/useAxiosSecure';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from "recharts";
 
-const WorkerHome = () => {
+const AdminStatistics = () => {
     const axiosSecure = useAxiosSecure()
-    // Fetch guest Stat Data here
-    const { data: workerData = {}, isLoading } = useQuery({
+    // Fetch Admin Stat Data here
+    const { data: adminData = {}, isLoading } = useQuery({
         queryKey: ['statData'],
         queryFn: async () => {
-            const { data } = await axiosSecure.get('/worker-stat')
+            const { data } = await axiosSecure.get('/admin-stat')
             return data
         },
     })
+
+    // console.log(adminData);
     const chartData = [
-        { name: "Total Submissions", value: workerData.totalSubmission },
-        { name: "Total WithDraw", value: workerData.totalWithDraw },
+        { name: "Total Users", value: adminData.totalUsers },
+        { name: "Total Submissions", value: adminData.totalSubmission },
+        { name: "Total Purchases", value: adminData.totalPurchase },
+        { name: "Total Tasks", value: adminData.totalTask }
     ];
+    // console.log(chartData);
+
     if (isLoading) return <LoadingSpinner />
     return (
         <BarChart
@@ -39,4 +43,4 @@ const WorkerHome = () => {
     )
 }
 
-export default WorkerHome
+export default AdminStatistics
