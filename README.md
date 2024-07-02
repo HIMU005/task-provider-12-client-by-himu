@@ -13,3 +13,11 @@ Feature of my website -->
 
 live site link
 https://work-managemnt.web.app/
+server repo link: https://github.com/HIMU005/task-provider-12-server-by-himu
+
+to run this project to your local machine use this steps
+
+- clone the project
+- use npm i command to install all the package
+- create a folder named .local.env and add there (VITE_APIKEY,VITE_AUTHDOMAIN,VITE_PROJECTID,VITE_STORAGEBUCKET,VITE_MESSAGINGSENDERID,VITE_APPID) value of your own firebase config
+  add (VITE_IMGBB_API_KEY, VITE_STRIPE_PUBLISHABLE_KEY) in your .env.local with there proper value
