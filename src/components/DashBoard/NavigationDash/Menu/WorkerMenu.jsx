@@ -1,63 +1,43 @@
-import NavigationDash from "../NavigationDash";
-import { FaHome } from "react-icons/fa";
-import { FaTasks } from "react-icons/fa";
+import { FaHome, FaTasks } from "react-icons/fa";
 import { IoIosCloudDone } from "react-icons/io";
-<<<<<<< HEAD
-<<<<<<< HEAD
 import { PiHandWithdrawFill } from "react-icons/pi";
-=======
->>>>>>> 087dfad (set up all home route and dashboard route)
-=======
-import { PiHandWithdrawFill } from "react-icons/pi";
->>>>>>> bf8266c (review a pending task and pay the user)
+import NavigationDash from "../NavigationDash";
 
 const WorkerMenu = () => {
-    return (
-        <div>
-            <NavigationDash
-                label='Home'
-                address='/dashboard'
-                icon={FaHome} />
+  return (
+    <div>
+      {/* Home Link */}
+      <NavigationDash label="Home" address="/dashboard" icon={FaHome} />
 
-            <NavigationDash
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 6adfd86 (approved Submission done for worker)
-                label='Approved Submission'
-                address='/dashboard/approved-submission'
-                icon={FaHome} />
+      {/* Approved Submission */}
+      <NavigationDash
+        label="Approved Submission"
+        address="/dashboard/approved-submission"
+        icon={FaHome} // Consider changing this icon to differentiate from Home
+      />
 
-            <NavigationDash
-<<<<<<< HEAD
-=======
->>>>>>> 087dfad (set up all home route and dashboard route)
-=======
->>>>>>> 6adfd86 (approved Submission done for worker)
-                label='Task List'
-                address='/dashboard/task-list'
-                icon={FaTasks} />
+      {/* Task List */}
+      <NavigationDash
+        label="Task List"
+        address="/dashboard/task-list"
+        icon={FaTasks}
+      />
 
-            <NavigationDash
-                label='My submission'
-                address='/dashboard/my-submission'
-                icon={IoIosCloudDone} />
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> bf8266c (review a pending task and pay the user)
+      {/* My Submission */}
+      <NavigationDash
+        label="My submission"
+        address="/dashboard/my-submission"
+        icon={IoIosCloudDone}
+      />
 
-            <NavigationDash
-                label='WithDraw'
-                address='/dashboard/withDraw'
-                icon={PiHandWithdrawFill} />
-<<<<<<< HEAD
-=======
->>>>>>> 087dfad (set up all home route and dashboard route)
-=======
->>>>>>> bf8266c (review a pending task and pay the user)
-        </div>
-    );
+      {/* Withdraw */}
+      <NavigationDash
+        label="WithDraw"
+        address="/dashboard/withDraw"
+        icon={PiHandWithdrawFill}
+      />
+    </div>
+  );
 };
 
 export default WorkerMenu;

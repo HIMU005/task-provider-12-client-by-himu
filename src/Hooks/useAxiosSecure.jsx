@@ -1,95 +1,43 @@
 import axios from "axios";
-import useAuth from "./useAuth";
 import { useNavigate } from "react-router-dom";
-<<<<<<< HEAD
-<<<<<<< HEAD
+import useAuth from "./useAuth";
 
-
+// Set base URL depending on your environment
 export const axiosSecure = axios.create({
-<<<<<<< HEAD
-<<<<<<< HEAD
-    // baseURL: "http://localhost:5000",
-    baseURL: "https://task-management-himu005.vercel.app",
-<<<<<<< HEAD
-=======
-import { useEffect } from "react";
-=======
->>>>>>> f7a9c7b (improve in usesecure)
-
-
-export const axiosSecure = axios.create({
-<<<<<<< HEAD
-    baseURL: "http://localhost:5000",
-<<<<<<< HEAD
-    // withCredentials: true,
->>>>>>> 2af016a (dashboard layout footer and navbar done)
-=======
->>>>>>> f7a9c7b (improve in usesecure)
-=======
-    // baseURL: "http://localhost:5000",
-    baseURL: "https://taskmanagement-eg027ticz-himu005s-projects.vercel.app",
->>>>>>> d471ce8 (deploy done)
-=======
->>>>>>> 823ddbc (fixed backend domain issue)
-=======
-    baseURL: "http://localhost:5000",
-    // baseURL: "https://task-management-himu005.vercel.app",
->>>>>>> c8b509d (change the logo and title)
-=======
-    // baseURL: "http://localhost:5000",
-    baseURL: "https://task-management-himu005.vercel.app",
->>>>>>> ba21378 (final deploy)
-})
+  baseURL: "https://task-management-himu005.vercel.app", // Change if needed
+  // baseURL: "http://localhost:5000", // For local dev
+});
 
 const useAxiosSecure = () => {
-    const { logOut } = useAuth();
-    const navigate = useNavigate();
+  const { logOut } = useAuth();
+  const navigate = useNavigate();
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> f7a9c7b (improve in usesecure)
-    axiosSecure.interceptors.request.use(function (config) {
-        const token = localStorage.getItem('access-token')
+  // Request interceptor: attach token
+  axiosSecure.interceptors.request.use(
+    (config) => {
+      const token = localStorage.getItem("access-token");
+      if (token) {
         config.headers.Authorization = token;
-        return config;
-    }, function (error) {
-        return Promise.reject(error)
-    })
+      }
+      return config;
+    },
+    (error) => Promise.reject(error)
+  );
 
-    axiosSecure.interceptors.response.use(function (response) {
-        return response;
-    }, async (error) => {
-        const status = error.response.status;
-        if (status === 401 || status === 403) {
-            await logOut();
-            navigate('/login')
-        }
-        return Promise.reject(error)
-    })
+  // Response interceptor: handle auth errors
+  axiosSecure.interceptors.response.use(
+    (response) => response,
+    async (error) => {
+      const status = error?.response?.status;
+      if (status === 401 || status === 403) {
+        await logOut();
+        navigate("/login");
+      }
+      return Promise.reject(error);
+    }
+  );
 
-<<<<<<< HEAD
-=======
-    useEffect(() => {
-        axiosSecure.interceptors.response.use(
-            res => {
-                return res
-            },
-            async error => {
-                console.log('error tracked in the interceptor', error.response)
-                if (error.response.status === 401 || error.response.status === 403) {
-                    await logOut()
-                    navigate('/login')
-                }
-                return Promise.reject(error)
-            }
-        )
-    }, [logOut, navigate])
->>>>>>> 2af016a (dashboard layout footer and navbar done)
-=======
->>>>>>> f7a9c7b (improve in usesecure)
-
-    return axiosSecure
-}
+  return axiosSecure;
+};
 
 export default useAxiosSecure;

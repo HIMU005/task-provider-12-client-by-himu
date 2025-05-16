@@ -1,90 +1,54 @@
+import { useQuery } from "@tanstack/react-query";
+import {
+  Bar,
+  BarChart,
+  CartesianGrid,
+  Legend,
+  Tooltip,
+  XAxis,
+  YAxis,
+} from "recharts";
+import LoadingSpinner from "../../../../components/Shared/LoadingSpinner";
+import useAxiosSecure from "../../../../Hooks/useAxiosSecure";
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 0baa999 (dashboard home page done)
-import { useQuery } from '@tanstack/react-query'
-
-import LoadingSpinner from '../../../../components/Shared/LoadingSpinner'
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from "recharts";
-import useAxiosSecure from '../../../../Hooks/useAxiosSecure';
-
-<<<<<<< HEAD
 const WorkerHome = () => {
-    const axiosSecure = useAxiosSecure()
-    // Fetch guest Stat Data here
-    const { data: workerData = {}, isLoading } = useQuery({
-        queryKey: ['statData'],
-        queryFn: async () => {
-            const { data } = await axiosSecure.get('/worker-stat')
-            return data
-        },
-    })
-    const chartData = [
-        { name: "Total Submissions", value: workerData.totalSubmission },
-        { name: "Total WithDraw", value: workerData.totalWithDraw },
-    ];
-    if (isLoading) return <LoadingSpinner />
-    return (
-        <BarChart
-            width={500}
-            height={300}
-            data={chartData}
-            margin={{
-                top: 20, right: 30, left: 20, bottom: 5,
-            }}
-        >
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="name" />
-            <YAxis />
-            <Tooltip />
-            <Legend />
-            <Bar dataKey="value" fill="#8884d8" />
-        </BarChart>
-    )
-}
+  const axiosSecure = useAxiosSecure();
 
-export default WorkerHome
-=======
-=======
->>>>>>> 0baa999 (dashboard home page done)
-const WorkerHome = () => {
-    const axiosSecure = useAxiosSecure()
-    // Fetch guest Stat Data here
-    const { data: workerData = {}, isLoading } = useQuery({
-        queryKey: ['statData'],
-        queryFn: async () => {
-            const { data } = await axiosSecure.get('/worker-stat')
-            return data
-        },
-    })
-    const chartData = [
-        { name: "Total Submissions", value: workerData.totalSubmission },
-        { name: "Total WithDraw", value: workerData.totalWithDraw },
-    ];
-    if (isLoading) return <LoadingSpinner />
-    return (
-        <BarChart
-            width={500}
-            height={300}
-            data={chartData}
-            margin={{
-                top: 20, right: 30, left: 20, bottom: 5,
-            }}
-        >
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="name" />
-            <YAxis />
-            <Tooltip />
-            <Legend />
-            <Bar dataKey="value" fill="#8884d8" />
-        </BarChart>
-    )
-}
+  const { data: workerData = {}, isLoading } = useQuery({
+    queryKey: ["workerStatData"],
+    queryFn: async () => {
+      const { data } = await axiosSecure.get("/worker-stat");
+      return data;
+    },
+  });
 
-<<<<<<< HEAD
+  if (isLoading) return <LoadingSpinner />;
+
+  const chartData = [
+    { name: "Total Submissions", value: workerData.totalSubmission || 0 },
+    { name: "Total Withdrawals", value: workerData.totalWithDraw || 0 },
+  ];
+
+  return (
+    <div className="worker-home-chart-container">
+      <h2 className="text-xl font-semibold mb-4">
+        Worker Dashboard Statistics
+      </h2>
+      <BarChart
+        width={500}
+        height={300}
+        data={chartData}
+        margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
+      >
+        <CartesianGrid strokeDasharray="3 3" />
+        <XAxis dataKey="name" />
+        <YAxis allowDecimals={false} />
+        <Tooltip />
+        <Legend />
+        <Bar dataKey="value" fill="#8884d8" />
+      </BarChart>
+    </div>
+  );
+};
+
 export default WorkerHome;
->>>>>>> 087dfad (set up all home route and dashboard route)
-=======
-export default WorkerHome
->>>>>>> 0baa999 (dashboard home page done)

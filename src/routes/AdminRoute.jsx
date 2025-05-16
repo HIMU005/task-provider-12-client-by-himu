@@ -1,39 +1,21 @@
-import useInfo from "../Hooks/useInfo";
+import PropTypes from "prop-types";
 import { Navigate } from "react-router-dom";
-import PropTypes from 'prop-types'
-<<<<<<< HEAD
-<<<<<<< HEAD
 import useAuth from "../Hooks/useAuth";
+import useInfo from "../Hooks/useInfo";
 
 const AdminRoute = ({ children }) => {
-    const [role, isLoading] = useInfo()
-    const { user, loading } = useAuth();
+  const [role, isRoleLoading] = useInfo();
+  const { user, loading: authLoading } = useAuth();
 
+  if (isRoleLoading || authLoading) return <h3>Wait</h3>;
 
-    if (isLoading || loading) return <h3>Wait</h3>
-    if (role.role === 'admin' && user) return children
-=======
-=======
-import useAuth from "../Hooks/useAuth";
->>>>>>> a18e3db (secure frontend for admin)
+  if (user && role?.role === "admin") return children;
 
-const AdminRoute = ({ children }) => {
-    const [role, isLoading] = useInfo()
-    const { user, loading } = useAuth();
+  return <Navigate to="/dashboard" />;
+};
 
-<<<<<<< HEAD
-    if (isLoading) return <h3>Wait</h3>
-    if (role === 'admin') return children
->>>>>>> 15e7f50 (private route , authorization route setup)
-=======
-
-    if (isLoading || loading) return <h3>Wait</h3>
-    if (role.role === 'admin' && user) return children
->>>>>>> a18e3db (secure frontend for admin)
-    return <Navigate to='/dashboard' />
-}
+AdminRoute.propTypes = {
+  children: PropTypes.element.isRequired,
+};
 
 export default AdminRoute;
-AdminRoute.propTypes = {
-    children: PropTypes.element,
-}
